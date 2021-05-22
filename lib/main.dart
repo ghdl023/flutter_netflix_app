@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_app/screen/home_screen.dart';
 import 'package:flutter_netflix_app/widget/footer.dart';
 
 void main() {
@@ -28,11 +29,7 @@ class _MyAppState extends State<MyApp> {
               body: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
-                  Container(
-                    child: Center(
-                      child: Text('홈'),
-                    ),
-                  ),
+                  HomeScreen(),
                   Container(
                     child: Center(
                       child: Text('검색'),
