@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_app/model/movie_model.dart';
+import 'package:flutter_netflix_app/screen/detail_screen.dart';
 
 class RectangleSlider extends StatelessWidget {
   final List<Movie> movies;
@@ -27,7 +28,7 @@ class RectangleSlider extends StatelessWidget {
             height: 120,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: makeRectangleImages(movies),
+              children: makeRectangleImages(context, movies),
             ),
           ),
         ],
@@ -36,11 +37,17 @@ class RectangleSlider extends StatelessWidget {
   }
 }
 
-List<Widget> makeRectangleImages(List<Movie> movies) {
+List<Widget> makeRectangleImages(BuildContext context, List<Movie> movies) {
   List<Widget> result = [];
   for (var i = 0; i < movies.length; i++) {
     result.add(InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute<Null>(
+            fullscreenDialog: true,
+            builder: (BuildContext context) {
+              return DetailScreen(movie: movies[i]);
+            }));
+      },
       child: Container(
         padding: EdgeInsets.only(right: 10),
         child: Align(
