@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_app/screen/home_screen.dart';
+import 'package:flutter_netflix_app/screen/profile_screen.dart';
 import 'package:flutter_netflix_app/widget/footer.dart';
 
 void main() {
@@ -40,11 +41,7 @@ class _MyAppState extends State<MyApp> {
                       child: Text('저장한 컨텐츠'),
                     ),
                   ),
-                  Container(
-                    child: Center(
-                      child: Text('더보기'),
-                    ),
-                  ),
+                  ProfileScreen(),
                 ],
               ),
               bottomNavigationBar: Footer(),

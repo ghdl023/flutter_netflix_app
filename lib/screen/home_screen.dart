@@ -47,6 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
       'poster': 'test_movie_1.png',
       'like': false,
     }),
+    Movie.fromMap({
+      'title': '사랑의 불시착5',
+      'keyword': '로맨스/판타지5',
+      'actors': '현빈, 손예진, 서지혜',
+      'directors': '이정효, 박지은',
+      'poster': 'test_movie_1.png',
+      'like': false,
+    }),
   ];
 
   @override

@@ -31,8 +31,8 @@ class Footer extends StatelessWidget {
                         fontSize: 9,
                       ))),
               Tab(
-                  icon: Icon(Icons.list, size: 18),
-                  child: Text('더보기',
+                  icon: Icon(Icons.person, size: 18),
+                  child: Text('마이페이지',
                       style: TextStyle(
                         fontSize: 9,
                       ))),
