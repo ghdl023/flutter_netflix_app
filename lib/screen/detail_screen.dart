@@ -4,7 +4,8 @@ import 'dart:ui';
 
 class DetailScreen extends StatefulWidget {
   final Movie movie;
-  DetailScreen({this.movie});
+  final int currentPage;
+  DetailScreen({this.movie, this.currentPage});
 
   _DetailScreenState createState() => _DetailScreenState();
 }
@@ -16,6 +17,8 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
     like = widget.movie.like;
+    print('movie is $widget.movie');
+    print('like is $like');
   }
 
   @override
@@ -31,7 +34,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage('images/' + widget.movie.poster),
+                      image: NetworkImage(widget.movie.poster),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -46,8 +49,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         children: <Widget>[
                           Container(
                             padding: EdgeInsets.fromLTRB(0, 45, 0, 10),
-                            child:
-                                Image.network('images/' + widget.movie.poster),
+                            child: Image.network(widget.movie.poster),
                             height: 300,
                           ),
                           Container(
@@ -110,7 +112,12 @@ class _DetailScreenState extends State<DetailScreen> {
                   Container(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          like = !like;
+                          widget.movie.reference.updateData({'like': like});
+                        });
+                      },
                       child: Column(
                         children: <Widget>[
                           like ? Icon(Icons.check) : Icon(Icons.add),

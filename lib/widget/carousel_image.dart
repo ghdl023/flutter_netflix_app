@@ -22,10 +22,11 @@ class _CarouselImageState extends State<CarouselImage> {
   void initState() {
     super.initState();
     movies = widget.movies;
-    images = movies.map((e) => Image.asset('./images/' + e.poster)).toList();
+    images = movies.map((e) => Image.network(e.poster)).toList();
     keywords = movies.map((e) => e.keyword).toList();
     likes = movies.map((e) => e.like).toList();
     _currentKeyword = keywords[0];
+    print('carousel_image init!');
   }
 
   @override
@@ -61,16 +62,26 @@ class _CarouselImageState extends State<CarouselImage> {
                             icon: Icon(Icons.favorite),
                             onPressed: () {
                               setState(() {
-                                likes[_currentPage] = false;
+                                likes[_currentPage] = !likes[_currentPage];
+                                movies[_currentPage].like = likes[_currentPage];
+                                movies[_currentPage]
+                                    .reference
+                                    .updateData({'like': likes[_currentPage]});
                               });
+                              print(movies[_currentPage]);
                             },
                           )
                         : IconButton(
                             icon: Icon(Icons.favorite_border),
                             onPressed: () {
                               setState(() {
-                                likes[_currentPage] = true;
+                                likes[_currentPage] = !likes[_currentPage];
+                                movies[_currentPage].like = likes[_currentPage];
+                                movies[_currentPage]
+                                    .reference
+                                    .updateData({'like': likes[_currentPage]});
                               });
+                              print(movies[_currentPage]);
                             },
                           ),
                     Text('내가 찜한 컨텐츠', style: TextStyle(fontSize: 11)),

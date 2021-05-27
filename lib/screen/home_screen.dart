@@ -4,61 +4,38 @@ import 'package:flutter_netflix_app/widget/carousel_image.dart';
 import 'package:flutter_netflix_app/widget/circle_slider.dart';
 import 'package:flutter_netflix_app/widget/rectangle_slider.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+_HomeScreenState homeScreenState = new _HomeScreenState();
+
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Firestore firestore = Firestore.instance;
+  Stream<QuerySnapshot> streamData;
+
   @override
   void initState() {
     super.initState();
+    streamData = firestore.collection('movie').snapshots();
+    print("home_screen init!");
   }
 
-  List<Movie> movies = [
-    Movie.fromMap({
-      'title': '사랑의 불시착',
-      'keyword': '로맨스/판타지',
-      'poster': 'test_movie_1.png',
-      'actors': '현빈, 손예진, 서지혜',
-      'directors': '이정효, 박지은',
-      'like': false,
-    }),
-    Movie.fromMap({
-      'title': '사랑의 불시착2',
-      'keyword': '로맨스/판타지2',
-      'actors': '현빈, 손예진, 서지혜',
-      'directors': '이정효, 박지은',
-      'poster': 'test_movie_1.png',
-      'like': false,
-    }),
-    Movie.fromMap({
-      'title': '사랑의 불시착3',
-      'keyword': '로맨스/판타지3',
-      'actors': '현빈, 손예진, 서지혜',
-      'directors': '이정효, 박지은',
-      'poster': 'test_movie_1.png',
-      'like': false,
-    }),
-    Movie.fromMap({
-      'title': '사랑의 불시착4',
-      'keyword': '로맨스/판타지4',
-      'actors': '현빈, 손예진, 서지혜',
-      'directors': '이정효, 박지은',
-      'poster': 'test_movie_1.png',
-      'like': false,
-    }),
-    Movie.fromMap({
-      'title': '사랑의 불시착5',
-      'keyword': '로맨스/판타지5',
-      'actors': '현빈, 손예진, 서지혜',
-      'directors': '이정효, 박지은',
-      'poster': 'test_movie_1.png',
-      'like': false,
-    }),
-  ];
+  Widget _fetchData(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestore.collection('movie').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        return _buildBody(context, snapshot.data.documents);
+      },
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBody(BuildContext context, List<DocumentSnapshot> snapshot) {
+    List<Movie> movies = snapshot.map((m) => Movie.fromSnapshot(m)).toList();
     return ListView(
       children: <Widget>[
         Stack(
@@ -74,6 +51,23 @@ class _HomeScreenState extends State<HomeScreen> {
         RectangleSlider(movies: movies),
       ],
     );
+  }
+
+  // List<Movie> movies = [
+  //   Movie.fromMap({
+  //     'title': '사랑의 불시착',
+  //     'keyword': '로맨스/판타지',
+  //     'poster': 'test_movie_1.png',
+  //     'actors': '현빈, 손예진, 서지혜',
+  //     'directors': '이정효, 박지은',
+  //     'like': false,
+  //   }),
+  // ];
+
+  @override
+  Widget build(BuildContext context) {
+    print("home_screen build!");
+    return _fetchData(context);
   }
 }
 
