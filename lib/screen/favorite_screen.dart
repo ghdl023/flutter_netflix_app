@@ -35,7 +35,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Expanded(
         child: GridView.count(
       crossAxisCount: 3,
-      crossAxisSpacing: 1 / 1.5,
+      childAspectRatio: 1 / 1.5,
       padding: EdgeInsets.all(3),
       children:
           favoriteResults.map((data) => _buildListItem(context, data)).toList(),
@@ -78,7 +78,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   )
                 ],
               )),
-          _buildBody(context),
+          _buildBody(context)
         ],
       ),
     );
