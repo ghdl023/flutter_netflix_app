@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netflix_app/screen/home_screen.dart';
 import 'package:flutter_netflix_app/screen/profile_screen.dart';
+import 'package:flutter_netflix_app/screen/search_screen.dart';
 import 'package:flutter_netflix_app/widget/footer.dart';
 
 void main() {
@@ -31,11 +32,7 @@ class _MyAppState extends State<MyApp> {
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   HomeScreen(),
-                  Container(
-                    child: Center(
-                      child: Text('검색'),
-                    ),
-                  ),
+                  SearchScreen(),
                   Container(
                     child: Center(
                       child: Text('저장한 컨텐츠'),
