@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netflix_app/screen/favorite_screen.dart';
 import 'package:flutter_netflix_app/screen/home_screen.dart';
 import 'package:flutter_netflix_app/screen/profile_screen.dart';
 import 'package:flutter_netflix_app/screen/search_screen.dart';
@@ -33,11 +34,7 @@ class _MyAppState extends State<MyApp> {
                 children: <Widget>[
                   HomeScreen(),
                   SearchScreen(),
-                  Container(
-                    child: Center(
-                      child: Text('저장한 컨텐츠'),
-                    ),
-                  ),
+                  FavoriteScreen(),
                   ProfileScreen(),
                 ],
               ),
